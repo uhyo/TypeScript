@@ -672,6 +672,12 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        for (var j = 0; j < arguments[i].length; j++)
+            ar.push(arguments[i][j]);
+    return ar;
+};
 var Shape = /** @class */ (function () {
     function Shape() {
     }
@@ -951,7 +957,7 @@ function f1(thing) {
     var x1 = path(thing, 'a'); // { x: number, y: string }
     var x2 = path(thing, 'a', 'y'); // string
     var x3 = path(thing, 'b'); // boolean
-    var x4 = path.apply(void 0, [thing].concat(['a', 'x'])); // any
+    var x4 = path.apply(void 0, __spreadArrays([thing], ['a', 'x'])); // any
 }
 // Repro from comment in #12114
 var assignTo2 = function (object, key1, key2) {

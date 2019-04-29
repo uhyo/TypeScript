@@ -101,6 +101,12 @@ const funcUnionTupleRest: TupleUnionFunc = (...params) => {
 
 //// [restTuplesFromContextualTypes.js]
 "use strict";
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        for (var j = 0; j < arguments[i].length; j++)
+            ar.push(arguments[i][j]);
+    return ar;
+};
 (function (a, b, c) { }).apply(void 0, t1);
 (function () {
     var x = [];
@@ -201,31 +207,31 @@ f2(function (a, b, c) {
         x[_i - 3] = arguments[_i];
     }
 });
-(function (a, b, c) { }).apply(void 0, [1].concat(t3));
+(function (a, b, c) { }).apply(void 0, __spreadArrays([1], t3));
 (function () {
     var x = [];
     for (var _i = 0; _i < arguments.length; _i++) {
         x[_i] = arguments[_i];
     }
-}).apply(void 0, [1].concat(t3));
+}).apply(void 0, __spreadArrays([1], t3));
 (function (a) {
     var x = [];
     for (var _i = 1; _i < arguments.length; _i++) {
         x[_i - 1] = arguments[_i];
     }
-}).apply(void 0, [1].concat(t3));
+}).apply(void 0, __spreadArrays([1], t3));
 (function (a, b) {
     var x = [];
     for (var _i = 2; _i < arguments.length; _i++) {
         x[_i - 2] = arguments[_i];
     }
-}).apply(void 0, [1].concat(t3));
+}).apply(void 0, __spreadArrays([1], t3));
 (function (a, b, c) {
     var x = [];
     for (var _i = 3; _i < arguments.length; _i++) {
         x[_i - 3] = arguments[_i];
     }
-}).apply(void 0, [1].concat(t3));
+}).apply(void 0, __spreadArrays([1], t3));
 f3(function (a, b, c) { });
 f3(function () {
     var x = [];
@@ -263,13 +269,13 @@ function f4(t) {
         for (var _i = 1; _i < arguments.length; _i++) {
             x[_i - 1] = arguments[_i];
         }
-    }).apply(void 0, [1].concat(t));
+    }).apply(void 0, __spreadArrays([1], t));
     (function (a) {
         var x = [];
         for (var _i = 1; _i < arguments.length; _i++) {
             x[_i - 1] = arguments[_i];
         }
-    }).apply(void 0, [1, 2].concat(t));
+    }).apply(void 0, __spreadArrays([1, 2], t));
     function f(cb) { }
     f(function () {
         var x = [];

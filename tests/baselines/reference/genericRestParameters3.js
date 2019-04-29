@@ -56,9 +56,15 @@ hmm("what"); // no error?  A = [] | [number, string] ?
 
 //// [genericRestParameters3.js]
 "use strict";
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        for (var j = 0; j < arguments[i].length; j++)
+            ar.push(arguments[i][j]);
+    return ar;
+};
 f1("foo", "abc");
 f1("foo", 10, true);
-f1.apply(void 0, ["foo"].concat(tt));
+f1.apply(void 0, __spreadArrays(["foo"], tt));
 f1("foo", 10); // Error
 f1("foo"); // Error
 f2 = f1;

@@ -62,6 +62,12 @@ function f5() {
 }
 
 //// [literalFreshnessPropagationOnNarrowing.js]
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        for (var j = 0; j < arguments[i].length; j++)
+            ar.push(arguments[i][j]);
+    return ar;
+};
 function f1() {
     var b = true;
     var obj = { b: b };
@@ -83,7 +89,7 @@ function f2() {
     // Desired: OK
     // 3.0: Error
     // 3.1: OK
-    var a5 = (Array.isArray(elOrA) ? elOrA : [elOrA]).slice();
+    var a5 = __spreadArrays(Array.isArray(elOrA) ? elOrA : [elOrA]);
 }
 function f3() {
     var x = 'x';

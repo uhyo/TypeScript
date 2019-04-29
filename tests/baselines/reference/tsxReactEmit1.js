@@ -42,6 +42,12 @@ var whitespace3 = <div>
 
 
 //// [file.js]
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        for (var j = 0; j < arguments[i].length; j++)
+            ar.push(arguments[i][j]);
+    return ar;
+};
 var p;
 var selfClosed1 = React.createElement("div", null);
 var selfClosed2 = React.createElement("div", { x: "1" });
@@ -61,10 +67,10 @@ var SomeClass = /** @class */ (function () {
     SomeClass.prototype.f = function () {
         var _this = this;
         var rewrites1 = React.createElement("div", null, function () { return _this; });
-        var rewrites2 = React.createElement("div", null, [p].concat(p, [p]));
+        var rewrites2 = React.createElement("div", null, __spreadArrays([p], p, [p]));
         var rewrites3 = React.createElement("div", null, { p: p });
         var rewrites4 = React.createElement("div", { a: function () { return _this; } });
-        var rewrites5 = React.createElement("div", { a: [p].concat(p, [p]) });
+        var rewrites5 = React.createElement("div", { a: __spreadArrays([p], p, [p]) });
         var rewrites6 = React.createElement("div", { a: { p: p } });
     };
     return SomeClass;

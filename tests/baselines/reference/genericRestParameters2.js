@@ -81,46 +81,52 @@ type T12 = P1<(x: number, y: number) => void>;
 
 //// [genericRestParameters2.js]
 "use strict";
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        for (var j = 0; j < arguments[i].length; j++)
+            ar.push(arguments[i][j]);
+    return ar;
+};
 f10(42, "hello");
 f10(42, "hello", true);
 f10(42, "hello", true, false);
 f10(t1[0], t1[1], t1[2], t1[3]);
 f10.apply(void 0, t1);
-f10.apply(void 0, [42].concat(t2));
-f10.apply(void 0, [42, "hello"].concat(t3));
-f10.apply(void 0, [42, "hello", true].concat(t4));
-f10.apply(void 0, [42, "hello", true].concat(t4, [false], t3));
+f10.apply(void 0, __spreadArrays([42], t2));
+f10.apply(void 0, __spreadArrays([42, "hello"], t3));
+f10.apply(void 0, __spreadArrays([42, "hello", true], t4));
+f10.apply(void 0, __spreadArrays([42, "hello", true], t4, [false], t3));
 f11(42, "hello");
 f11(42, "hello", true);
 f11(42, "hello", true, false);
 f11(t1[0], t1[1], t1[2], t1[3]);
 f11.apply(void 0, t1);
-f11.apply(void 0, [42].concat(t2));
-f11.apply(void 0, [42, "hello"].concat(t3));
-f11.apply(void 0, [42, "hello", true].concat(t4));
-f11.apply(void 0, [42, "hello", true].concat(t4, [false], t3));
+f11.apply(void 0, __spreadArrays([42], t2));
+f11.apply(void 0, __spreadArrays([42, "hello"], t3));
+f11.apply(void 0, __spreadArrays([42, "hello", true], t4));
+f11.apply(void 0, __spreadArrays([42, "hello", true], t4, [false], t3));
 f12(42, "hello");
 f12(42, "hello", true);
 f12(42, "hello", true, false);
 f12(t1[0], t1[1], t1[2], t1[3]);
 f12.apply(void 0, t1);
-f12.apply(void 0, [42].concat(t2));
-f12.apply(void 0, [42, "hello"].concat(t3));
-f12.apply(void 0, [42, "hello", true].concat(t4));
-f12.apply(void 0, [42, "hello", true].concat(t4, [false], t3));
+f12.apply(void 0, __spreadArrays([42], t2));
+f12.apply(void 0, __spreadArrays([42, "hello"], t3));
+f12.apply(void 0, __spreadArrays([42, "hello", true], t4));
+f12.apply(void 0, __spreadArrays([42, "hello", true], t4, [false], t3));
 f13(42, "hello");
 f13(42, "hello", true);
 f13(42, "hello", true, false);
 f13(t1[0], t1[1], t1[2], t1[3]);
 f13.apply(void 0, t1);
-f13.apply(void 0, [42].concat(t2));
-f13.apply(void 0, [42, "hello"].concat(t3));
-f13.apply(void 0, [42, "hello", true].concat(t4));
-f13.apply(void 0, [42, "hello", true].concat(t4, [false], t3));
+f13.apply(void 0, __spreadArrays([42], t2));
+f13.apply(void 0, __spreadArrays([42, "hello"], t3));
+f13.apply(void 0, __spreadArrays([42, "hello", true], t4));
+f13.apply(void 0, __spreadArrays([42, "hello", true], t4, [false], t3));
 f20.apply(void 0, t1);
-f20.apply(void 0, [42].concat(t2));
-f20.apply(void 0, [42, "hello"].concat(t3));
-f20.apply(void 0, [42, "hello"].concat(t2, [true]));
+f20.apply(void 0, __spreadArrays([42], t2));
+f20.apply(void 0, __spreadArrays([42, "hello"], t3));
+f20.apply(void 0, __spreadArrays([42, "hello"], t2, [true]));
 
 
 //// [genericRestParameters2.d.ts]

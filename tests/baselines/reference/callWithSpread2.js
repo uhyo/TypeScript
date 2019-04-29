@@ -38,24 +38,30 @@ prefix2("g", ...ns);
 
 
 //// [callWithSpread2.js]
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        for (var j = 0; j < arguments[i].length; j++)
+            ar.push(arguments[i][j]);
+    return ar;
+};
 // good
 all.apply(void 0, ns);
 weird.apply(void 0, ns);
 weird.apply(void 0, mixed);
 weird.apply(void 0, tuple);
-prefix.apply(void 0, ["a"].concat(ns));
-rest.apply(void 0, ["d"].concat(ns));
+prefix.apply(void 0, __spreadArrays(["a"], ns));
+rest.apply(void 0, __spreadArrays(["d"], ns));
 // extra arguments
-normal.apply(void 0, ["g"].concat(ns));
+normal.apply(void 0, __spreadArrays(["g"], ns));
 thunk.apply(void 0, ns);
 // bad
 all.apply(void 0, mixed);
 all.apply(void 0, tuple);
-prefix.apply(void 0, ["b"].concat(mixed));
-prefix.apply(void 0, ["c"].concat(tuple));
-rest.apply(void 0, ["e"].concat(mixed));
-rest.apply(void 0, ["f"].concat(tuple));
+prefix.apply(void 0, __spreadArrays(["b"], mixed));
+prefix.apply(void 0, __spreadArrays(["c"], tuple));
+rest.apply(void 0, __spreadArrays(["e"], mixed));
+rest.apply(void 0, __spreadArrays(["f"], tuple));
 prefix.apply(void 0, ns); // required parameters are required
 prefix.apply(void 0, mixed);
 prefix.apply(void 0, tuple);
-prefix2.apply(void 0, ["g"].concat(ns));
+prefix2.apply(void 0, __spreadArrays(["g"], ns));

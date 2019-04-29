@@ -11,9 +11,15 @@ takeTwo(...t2, 'a'); // error on 'a'
 takeTwo(...t3); // error on ...t3
 
 //// [callWithSpread3.js]
-takeTwo.apply(void 0, ['a'].concat(t2)); // error on ...t2
-takeTwo.apply(void 0, ['a', 'b', 'c'].concat(t2)); // error on 'c' and ...t2
-takeTwo.apply(void 0, ['a', 'b'].concat(t2, ['c'])); // error on ...t2 and 'c'
-takeTwo.apply(void 0, ['a', 'b', 'c'].concat(t2, ['d'])); // error on 'c', ...t2 and 'd'
-takeTwo.apply(void 0, t2.concat(['a'])); // error on 'a'
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        for (var j = 0; j < arguments[i].length; j++)
+            ar.push(arguments[i][j]);
+    return ar;
+};
+takeTwo.apply(void 0, __spreadArrays(['a'], t2)); // error on ...t2
+takeTwo.apply(void 0, __spreadArrays(['a', 'b', 'c'], t2)); // error on 'c' and ...t2
+takeTwo.apply(void 0, __spreadArrays(['a', 'b'], t2, ['c'])); // error on ...t2 and 'c'
+takeTwo.apply(void 0, __spreadArrays(['a', 'b', 'c'], t2, ['d'])); // error on 'c', ...t2 and 'd'
+takeTwo.apply(void 0, __spreadArrays(t2, ['a'])); // error on 'a'
 takeTwo.apply(void 0, t3); // error on ...t3

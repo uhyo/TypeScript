@@ -2657,6 +2657,7 @@ namespace ts {
             valuesHelper,
             readHelper,
             spreadHelper,
+            spreadArraysHelper,
             restHelper,
             decorateHelper,
             metadataHelper,
@@ -3686,6 +3687,30 @@ namespace ts {
         return setTextRange(
             createCall(
                 getHelperName("__spread"),
+                /*typeArguments*/ undefined,
+                argumentList
+            ),
+            location
+        );
+    }
+
+    export const spreadArraysHelper: UnscopedEmitHelper = {
+        name: "typescript:spreadArrays",
+        scoped: false,
+        text: `
+            var __spreadArrays = (this && this.__spreadArrays) || function () {
+                for (var ar = [], i = 0; i < arguments.length; i++)
+                    for (var j = 0; j < arguments[i].length; j++)
+                        ar.push(arguments[i][j]);
+                return ar;
+            };`
+    };
+
+    export function createSpreadArraysHelper(context: TransformationContext, argumentList: ReadonlyArray<Expression>, location?: TextRange) {
+        context.requestEmitHelper(spreadArraysHelper);
+        return setTextRange(
+            createCall(
+                getHelperName("__spreadArrays"),
                 /*typeArguments*/ undefined,
                 argumentList
             ),

@@ -42,6 +42,12 @@ var {h: {h1 = [undefined, null]}}: { h: { h1: number[] } } = { h: { h1: [1, 2] }
 
 
 //// [destructuringVariableDeclaration1ES5.js]
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++)
+        for (var j = 0; j < arguments[i].length; j++)
+            ar.push(arguments[i][j]);
+    return ar;
+};
 // The type T associated with a destructuring variable declaration is determined as follows:
 //      If the declaration includes a type annotation, T is that type.
 var _a = { a1: 10, a2: "world" }, a1 = _a.a1, a2 = _a.a2;
@@ -66,7 +72,7 @@ var _m = [1, "string"], d1 = _m[0], d2 = _m[1];
 //      Otherwise, if S is a tuple- like type (section 3.3.3):
 //              Otherwise, if S has a numeric index signature, T is the type of the numeric index signature.
 var temp1 = [true, false, true];
-var _o = [1, "string"].concat(temp1), d3 = _o[0], d4 = _o[1];
+var _o = __spreadArrays([1, "string"], temp1), d3 = _o[0], d4 = _o[1];
 //  Combining both forms of destructuring,
 var _p = { e: [1, 2, { b1: 4, b4: 0 }] }.e, e1 = _p[0], e2 = _p[1], _q = _p[2], e3 = _q === void 0 ? { b1: 1000, b4: 200 } : _q;
 var _r = { f: [1, 2, { f3: 4, f5: 0 }] }.f, f1 = _r[0], f2 = _r[1], _s = _r[2], f4 = _s.f3, f5 = _s.f5;

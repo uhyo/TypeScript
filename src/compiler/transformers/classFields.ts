@@ -167,6 +167,12 @@ namespace ts {
         let currentComputedPropertyNameClassLexicalEnvironment: ClassLexicalEnvironment | undefined;
         let currentStaticPropertyDeclarationOrStaticBlock: PropertyDeclaration | ClassStaticBlockDeclaration | undefined;
 
+        /**
+         * Stores whether static class fields are transformed using static blocks within current class definition.
+         * See GH#45574.
+         */
+        let currentShouldUseStaticBlocksForStaticFields = false;
+
         return chainBundle(context, transformSourceFile);
 
         function transformSourceFile(node: SourceFile) {
@@ -447,6 +453,37 @@ namespace ts {
             const expr = getPropertyNameExpressionIfNeeded(node.name, !!node.initializer || useDefineForClassFields);
             if (expr && !isSimpleInlineableExpression(expr)) {
                 getPendingExpressions().push(expr);
+            }
+            if (currentShouldUseStaticBlocksForStaticFields && node.initializer) {
+                let assignment: Expression;
+                if (isMemberName(node.name)) {
+                    // this.name = value
+                    assignment = factory.createAssignment(
+                        factory.createPropertyAccessExpression(
+                            factory.createThis(),
+                            node.name
+                        ),
+                        node.initializer
+                    );
+                }
+                else {
+                    // this[expr] = value
+                    assignment = factory.createAssignment(
+                        factory.createElementAccessExpression(
+                            factory.createThis(),
+                            isComputedPropertyName(node.name) ? node.name.expression : node.name
+                        ),
+                        node.initializer
+                    );
+                }
+
+                return factory.createClassStaticBlockDeclaration(
+                    undefined,
+                    undefined,
+                    factory.createBlock([
+                        factory.createExpressionStatement(assignment)
+                    ], /* multiLine */ true)
+                );
             }
             return undefined;
         }
@@ -1007,6 +1044,10 @@ namespace ts {
             }
 
             const staticProperties = getStaticPropertiesAndClassStaticBlock(node);
+            const hasStaticBlocks = some(staticProperties, isClassStaticBlockDeclaration);
+            // See GH#45574. If there is already a static block in this class,
+            // Static class fields are transformed using static blocks.
+            const shouldUseStaticBlocksForStaticFields = !useDefineForClassFields && !shouldTransformPrivateElementsOrClassStaticBlocks && !hasStaticBlocks;
 
             // If a class has private static fields, or a static field has a `this` or `super` reference,
             // then we need to allocate a temp variable to hold on to that reference.
@@ -1047,7 +1088,7 @@ namespace ts {
             //      HasLexicalDeclaration (N) : Determines if the argument identifier has a binding in this environment record that was created using
             //                                  a lexical declaration such as a LexicalDeclaration or a ClassDeclaration.
 
-            if (some(staticProperties)) {
+            if (shouldUseStaticBlocksForStaticFields && some(staticProperties)) {
                 addPropertyOrClassStaticBlockStatements(statements, staticProperties, factory.getInternalName(node));
             }
 
@@ -1174,7 +1215,14 @@ namespace ts {
             if (constructor) {
                 members.push(constructor);
             }
+
+            const hasStaticBlocks = some(node.members, isClassStaticBlockDeclaration);
+            const savedShouldUseStaticBlocksForStaticFields = currentShouldUseStaticBlocksForStaticFields;
+            currentShouldUseStaticBlocksForStaticFields = !useDefineForClassFields && !shouldTransformPrivateElementsOrClassStaticBlocks && !hasStaticBlocks;
+
             addRange(members, visitNodes(node.members, classElementVisitor, isClassElement));
+
+            currentShouldUseStaticBlocksForStaticFields = savedShouldUseStaticBlocksForStaticFields;
             return setTextRange(factory.createNodeArray(members), /*location*/ node.members);
         }
 
